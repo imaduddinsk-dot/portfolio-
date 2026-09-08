@@ -1,253 +1,367 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Shaik Imaduddin — Program Manager</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shaik Imaduddin — the bridge</title>
+<meta name="description" content="Seven years at Amazon getting Product, Tech, Science, Operations and Leadership shipping the same thing. Four stops on a real bridge. Step inside one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-:root{--aq:#00B4D8;--aqd:#0089A8;--co:#FF6B6B;--cod:#D14B4B;--vi:#7B5EA7;--vid:#5F4488;--su:#FFD166;--sud:#E0B23F;--ink:#0B3954;--sub:#4A7A96;--bg:#F2FBFD;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;position:relative;}
-a{text-decoration:none;color:inherit;}
-::selection{background:var(--aq);color:#fff;}
-.bubwrap{position:fixed;inset:0;z-index:0;pointer-events:none;}
-.bubwrap canvas{width:100%;height:100%;display:block;}
-.wrap{max-width:1160px;margin:0 auto;padding:0 36px;position:relative;z-index:1;}
+:root{--paper:#F3EFE6;--ink:#161A22;--accent:#E4572E}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#0E1218;color:var(--ink);font-family:'Instrument Sans',sans-serif;overflow:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+/* ---------- the photograph ---------- */
+#stage{position:fixed;inset:0;overflow:hidden;background:linear-gradient(180deg,#5F98D2 0%,#8FC0E4 55%,#65706E 100%)}
+#photo{position:absolute;transform-origin:50% 50%;transition:transform 1.1s cubic-bezier(.2,.7,.2,1);will-change:transform}
+#photo img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
+#photo .grade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,239,230,.55) 0%,rgba(243,239,230,0) 16%,rgba(243,239,230,0) 74%,rgba(243,239,230,.8) 100%);pointer-events:none}
+.fog{position:absolute;width:38%;height:16%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,255,255,.28),rgba(255,255,255,0) 70%);filter:blur(14px);pointer-events:none;animation:drift 26s ease-in-out infinite alternate}
+.fog.b{animation-duration:34s;animation-delay:-12s}
+@keyframes drift{from{transform:translate(-4%,0) scaleX(1)}to{transform:translate(5%,-2%) scaleX(1.15)}}
+/* birds */
+.bird{position:absolute;width:22px;height:10px;pointer-events:none;animation:fly linear infinite;opacity:.85}
+.bird svg{width:100%;height:100%;animation:flap .55s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.35)}}
+@keyframes fly{from{transform:translate(-40px,0)}to{transform:translate(110vw,-60px)}}
+/* pins */
+.pin{position:absolute;transform:translate(-50%,-50%);z-index:5;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .4s}
+.pin .ring{width:22px;height:22px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(228,87,46,.28),0 6px 18px rgba(0,0,0,.4);position:relative}
+.pin .ring::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid rgba(243,239,230,.8);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.pin b{font-family:Fraunces,serif;font-weight:600;font-size:clamp(12px,1.25vw,16px);padding:6px 12px;border:1.5px solid var(--ink);border-radius:999px;background:rgba(243,239,230,.92);color:var(--ink);white-space:nowrap;transition:background .2s,color .2s}
+.pin span{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:var(--ink);background:rgba(243,239,230,.8);padding:2px 7px;border-radius:999px}
+.pin:hover b,.pin.hot b{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.pin.hide{opacity:0;pointer-events:none}
+.pin.focus .ring::after{animation:none;inset:-8px;border-color:var(--accent)}
+#enter{position:absolute;transform:translate(-50%,-50%);z-index:6;opacity:0;pointer-events:none;transition:opacity .5s .5s}
+#enter.on{opacity:1;pointer-events:auto}
+#enter .btn{background:var(--accent);border-color:var(--accent);color:var(--paper);padding:12px 22px;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+#enter .btn:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+/* ---------- chrome ---------- */
+header{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 26px;z-index:20;font-size:12px;letter-spacing:.08em;color:var(--ink)}
+header nav{display:flex;gap:18px}
+header a,header button{color:var(--ink);text-decoration:none;border:0;border-bottom:1.5px solid transparent;background:none;font:inherit;letter-spacing:inherit;cursor:pointer;padding:0;text-shadow:inherit}
+header a:hover,header button:hover{border-bottom-color:var(--accent)}
+.hint{position:fixed;left:50%;top:58px;transform:translateX(-50%);z-index:20;width:max-content;max-width:calc(100vw - 32px);text-align:center;transition:opacity .6s,transform .6s;text-shadow:0 1px 2px rgba(243,239,230,.9),0 0 14px rgba(243,239,230,.7)}
+.hint p{display:inline;margin:0;font-family:Fraunces,serif;font-style:italic;font-size:clamp(13px,1.05vw,15.5px);line-height:1.4;color:var(--ink)}
+.hint .chain{font-style:normal;font-size:.8em;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.hint .chain i{font-style:normal;color:var(--accent);margin:0 2px}
+.hint p b{font-weight:600;color:var(--accent)}
+.hint.off{opacity:0;transform:translate(-50%,-10px);pointer-events:none}
+#intro{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:22px clamp(16px,4vw,56px) 18px;display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);transition:opacity .5s,transform .5s}
+#intro::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,239,230,0) 0%,rgba(243,239,230,.86) 30%,rgba(243,239,230,.97) 100%);z-index:-1}
+#intro.hide{opacity:0;transform:translateY(16px);pointer-events:none}
+#intro .ph{height:clamp(84px,11vh,124px);width:auto;border-radius:12px;border:1.5px solid var(--ink);display:block;flex:none}
+#intro .tx{flex:1;min-width:0}
+.eyebrow{font-size:10.5px;letter-spacing:.12em}
+h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(16px,1.7vw,22px);line-height:1.25;margin:6px 0 4px}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{font-size:13px;color:color-mix(in oklab,var(--ink) 75%,transparent);margin:0}
+.stamp{display:inline-block;margin-top:8px;padding:5px 11px;border:1.5px dashed color-mix(in oklab,var(--ink) 35%,transparent);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:color-mix(in oklab,var(--ink) 70%,transparent);transform:rotate(-1.2deg)}
+.stamp b{color:var(--accent);font-weight:600}
+.side{flex:none;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.stats{display:flex;gap:18px}
+.stats div{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:color-mix(in oklab,var(--ink) 65%,transparent);text-align:right}
+.stats b{display:block;font-family:Fraunces,serif;font-size:21px;color:var(--ink);letter-spacing:0}
+.cta{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:600;text-decoration:none;cursor:pointer;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-family:'Instrument Sans',sans-serif}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.credit{position:fixed;right:14px;bottom:6px;z-index:16;font-size:9.5px;letter-spacing:.04em;color:color-mix(in oklab,var(--ink) 55%,transparent)}
+.credit a{color:inherit}
+/* ---------- inside ---------- */
+canvas#cv{position:fixed;inset:0;display:none;cursor:grab}
+canvas#cv.pt{cursor:pointer}
+body.in canvas#cv{display:block}
+body.in #stage,body.in #intro,body.in .credit,body.in .hint{display:none}
+#fade{position:fixed;inset:0;background:#0E1218;opacity:0;pointer-events:none;transition:opacity .5s;z-index:30}
+#fade.on{opacity:1}
+#back{position:fixed;left:26px;top:56px;z-index:20;opacity:0;pointer-events:none;transition:opacity .4s;background:var(--accent);border-color:var(--accent);color:var(--paper);padding:10px 18px;font-size:13.5px}
+#back.on{opacity:1;pointer-events:auto}
+#back:hover{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+#room{position:fixed;left:26px;bottom:24px;z-index:20;opacity:0;transition:opacity .4s;pointer-events:none;color:var(--paper)}
+#room.on{opacity:1}
+#room .pn{color:var(--accent)}
+#room h2{color:var(--paper);margin:4px 0 6px}
+#room p{color:rgba(243,239,230,.72);max-width:420px}
+#room .btn{margin-top:10px;pointer-events:auto;border-color:rgba(243,239,230,.7);color:var(--paper)}
+#room .btn:hover{border-color:var(--accent);color:var(--accent)}
+.dl{position:fixed;transform:translate(-50%,-50%);z-index:12;font-family:Fraunces,serif;font-weight:600;font-size:13px;padding:5px 11px;border:1.5px solid var(--paper);border-radius:999px;background:rgba(22,26,34,.85);color:var(--paper);white-space:nowrap;cursor:pointer;transition:opacity .3s;user-select:none}
+.dl.hot,.dl:hover{background:var(--accent);border-color:var(--accent)}
+#door{position:fixed;right:clamp(16px,4.5vw,64px);top:50%;width:min(520px,92vw);max-height:84vh;overflow:auto;z-index:16;opacity:0;transform:translate(24px,-50%);transition:opacity .45s,transform .45s;pointer-events:none}
+#door.on{opacity:1;transform:translate(0,-50%);pointer-events:auto}
+.card{background:color-mix(in oklab,var(--paper) 94%,white);border:1.5px solid var(--ink);border-radius:18px;padding:24px 26px;box-shadow:0 24px 60px -30px rgba(0,0,0,.6)}
+.pn{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.x{border:1.5px solid var(--ink);background:none;border-radius:999px;width:28px;height:28px;cursor:pointer;color:var(--ink);font-size:14px;line-height:1}
+.x:hover{border-color:var(--accent);color:var(--accent)}
+h2{font-family:Fraunces,serif;font-weight:600;font-size:clamp(19px,2.1vw,26px);line-height:1.22;margin:0 0 8px}
+h3{font-family:Fraunces,serif;font-size:15px;margin:14px 0 2px;color:var(--accent)}
+p{font-size:14.5px;line-height:1.58;color:color-mix(in oklab,var(--ink) 82%,transparent);margin:6px 0}
+.kv{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.kv span{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 10px;border:1px solid color-mix(in oklab,var(--ink) 25%,transparent);border-radius:999px}
+.kv span b{color:var(--accent);font-weight:600}
+.nxt{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.nxt .bk{border-style:dashed}
+/* no-webgl: door panel still works as a plain overlay */
+.flat #room,.flat .dl,.flat canvas#cv{display:none!important}
+.flat.in #stage{display:block;filter:blur(6px) brightness(.6)}
+@media(max-width:720px){
+#intro{flex-wrap:wrap;padding:12px}
+#intro .ph{height:64px}
+.side{align-items:flex-start;width:100%}
+.stats b{font-size:17px}
+.pin b{font-size:11px}
+#door{left:12px;right:12px;width:auto;top:auto;bottom:12px;transform:translateY(8px);max-height:62vh}
+#door.on{transform:none}
+#room,.credit{display:none}
+.hint{top:52px}
+.hint p{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+<header class="mono">
+  <span>SHAIK IMADUDDIN</span>
+  <nav>
+    <button data-t="0">COST &amp; IMPACT</button>
+    <button data-t="1">INNOVATION</button>
+    <button data-t="2">UPSKILLING</button>
+    <button data-t="3">NOT A CONVENTIONAL PM</button>
+    <a href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank" rel="noopener">LINKEDIN</a>
+  </nav>
+</header>
+<div class="hint" id="hint"><p>A program manager is a bridge across teams, <span class="chain mono">Ops <i>→</i> Product <i>→</i> Tech <i>→</i> Science <i>→</i> Leadership</span>, carrying the load between them. <b>Click a stop, step inside.</b></p></div>
 
-/* nav */
-.nav{display:flex;align-items:center;gap:28px;padding:22px 0;font-weight:600;font-size:14.5px;}
-.logo{font-family:'Fredoka',sans-serif;font-weight:600;font-size:23px;color:var(--ink);display:flex;align-items:center;gap:10px;}
-.logo i{width:18px;height:18px;border-radius:50% 50% 50% 4px;background:var(--aq);display:inline-block;transform:rotate(45deg);box-shadow:0 3px 10px rgba(0,180,216,.4);}
-.nav .lk{margin-left:auto;display:flex;gap:24px;color:var(--sub);}
-.nav .lk a{transition:color .15s;}
-.nav .lk a:hover{color:var(--aq);}
-.btn{background:var(--aq);color:#fff;border-radius:16px;padding:12px 26px;font-weight:700;font-size:14px;display:inline-block;box-shadow:0 5px 0 var(--aqd);transition:box-shadow .13s,transform .13s;border:none;cursor:pointer;font-family:inherit;}
-.btn:hover{box-shadow:0 2px 0 var(--aqd);transform:translateY(3px);}
-.btn.co{background:var(--co);box-shadow:0 5px 0 var(--cod);}
-.btn.co:hover{box-shadow:0 2px 0 var(--cod);}
-@media(max-width:720px){.nav .lk{display:none;}}
-
-/* hero */
-.hero{text-align:center;padding:60px 0 20px;max-width:840px;margin:0 auto;}
-.kick{display:inline-flex;align-items:center;gap:9px;background:#fff;border-radius:999px;padding:10px 20px;font-weight:700;font-size:13px;color:var(--vi);box-shadow:0 4px 16px rgba(11,57,84,.1);margin-bottom:26px;}
-.hero h1{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(40px,5.6vw,70px);line-height:1.06;letter-spacing:-.01em;}
-.hero h1 .mk{position:relative;white-space:nowrap;}
-.hero h1 .mk u{position:relative;z-index:1;text-decoration:none;}
-.hero h1 .mk::before{content:'';position:absolute;left:-.12em;right:-.12em;top:.5em;bottom:.04em;border-radius:.35em;transform:scaleX(0) rotate(-1.4deg);transform-origin:left center;transition:transform .9s cubic-bezier(.22,.9,.24,1) .3s;}
-body.ready .hero h1 .mk::before{transform:scaleX(1) rotate(-1.4deg);}
-.hero h1 .mk.aq::before{background:#9BE8F5;}
-.hero h1 .mk.co::before{background:#FFD1D1;}
-.sub{font-size:17px;color:var(--sub);max-width:600px;margin:24px auto 0;line-height:1.7;}
-.ctas{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
-.cert{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:12px 20px;font-weight:700;font-size:13px;color:var(--vi);box-shadow:0 4px 14px rgba(11,57,84,.08);}
-
-/* stats — circular badges */
-.stats{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin:54px 0 6px;}
-.st{width:158px;height:158px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transform:rotate(-3deg);transition:transform .25s;box-shadow:0 12px 30px rgba(11,57,84,.16);}
-.st:nth-child(even){transform:rotate(3deg);}
-.st:hover{transform:rotate(0) scale(1.07);}
-.st:nth-child(1){background:var(--aq);}
-.st:nth-child(2){background:var(--co);}
-.st:nth-child(3){background:var(--vi);}
-.st:nth-child(4){background:var(--su);color:var(--ink);}
-.st .n{font-family:'Fredoka',sans-serif;font-weight:600;font-size:38px;line-height:1;}
-.st .l{font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;opacity:.92;margin-top:6px;text-align:center;padding:0 12px;}
-
-/* wave */
-.wave{display:block;width:100%;height:70px;margin:30px 0 10px;}
-
-/* section title */
-.secT{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(28px,3.4vw,42px);text-align:center;margin:44px 0 12px;letter-spacing:-.01em;}
-.secT em{font-style:normal;color:var(--aq);}
-.secSub{text-align:center;color:var(--sub);font-size:16px;max-width:600px;margin:0 auto 36px;line-height:1.6;}
-
-/* cards */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;padding-bottom:20px;}
-.card{background:#fff;border-radius:26px;padding:26px 24px 28px;border-bottom:7px solid;box-shadow:0 8px 22px rgba(11,57,84,.08);transition:transform .25s,box-shadow .25s;}
-.card:hover{transform:translateY(-8px);box-shadow:0 22px 46px rgba(11,57,84,.18);}
-.card .em{font-size:32px;margin-bottom:14px;display:block;}
-.card h3{font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;margin-bottom:8px;color:var(--ink);}
-.card p{font-size:14px;color:var(--sub);line-height:1.6;}
-.card .tag{display:inline-block;margin-top:16px;font-weight:700;font-size:11.5px;padding:5px 13px;border-radius:999px;letter-spacing:.02em;}
-.b-aq{border-color:var(--aq);}.b-co{border-color:var(--co);}.b-vi{border-color:var(--vi);}.b-su{border-color:var(--su);}
-.t-aq{background:#D6F4FB;color:var(--aqd);}.t-co{background:#FFE0E0;color:var(--cod);}.t-vi{background:#EDE5F7;color:var(--vid);}.t-su{background:#FFF2CC;color:var(--sud);}
-
-/* featured work card */
-.feature{grid-column:1 / -1;background:linear-gradient(135deg,#fff,#EAF9FD);border-radius:30px;padding:38px 40px;border-bottom:8px solid var(--aq);box-shadow:0 14px 40px rgba(11,57,84,.12);}
-.feature .ftag{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--vi);background:#EDE5F7;border-radius:999px;padding:6px 16px;margin-bottom:16px;}
-.feature h3{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(24px,3vw,32px);color:var(--ink);margin-bottom:14px;line-height:1.1;}
-.feature p{font-size:15.5px;color:var(--sub);line-height:1.75;max-width:820px;margin-bottom:24px;}
-.fbubbles{display:flex;gap:18px;flex-wrap:wrap;}
-.fb{background:#fff;border-radius:18px;padding:16px 22px;box-shadow:0 6px 18px rgba(11,57,84,.08);min-width:130px;}
-.fb .fn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:26px;color:var(--aq);line-height:1;}
-.fb:nth-child(2) .fn{color:var(--co);}.fb:nth-child(3) .fn{color:var(--vi);}.fb:nth-child(4) .fn{color:var(--sud);}
-.fb .fl{font-size:12px;color:var(--sub);margin-top:5px;font-weight:600;}
-
-/* approach steps */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-bottom:20px;}
-@media(max-width:820px){.steps{grid-template-columns:repeat(2,1fr);}}
-.step{background:#fff;border-radius:24px;padding:26px 22px;box-shadow:0 8px 22px rgba(11,57,84,.07);text-align:center;transition:transform .25s;}
-.step:hover{transform:translateY(-6px);}
-.step .sn{width:46px;height:46px;border-radius:50%;background:var(--aq);color:#fff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.step:nth-child(2) .sn{background:var(--co);}.step:nth-child(3) .sn{background:var(--vi);}.step:nth-child(4) .sn{background:var(--su);color:var(--ink);}
-.step h4{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;margin-bottom:7px;}
-.step p{font-size:13.5px;color:var(--sub);line-height:1.55;}
-
-/* contact */
-.contact{text-align:center;padding:60px 0 40px;}
-.contact h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(30px,5vw,50px);margin-bottom:14px;letter-spacing:-.01em;}
-.contact p{color:var(--sub);font-size:17px;max-width:520px;margin:0 auto 30px;line-height:1.6;}
-footer{text-align:center;padding:30px 0 40px;color:var(--sub);font-size:13px;position:relative;z-index:1;}
-footer a{color:var(--aq);font-weight:700;}
-
-.sec{padding:40px 0;}
-.rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,.9,.24,1),transform .7s cubic-bezier(.22,.9,.24,1);}
-.rv.in{opacity:1;transform:translateY(0);}
-</style></head><body>
-<div class="bubwrap"><canvas id="bub"></canvas></div>
-
-<div class="wrap">
-  <div class="nav rv">
-    <span class="logo"><i></i><span>Shaik Imaduddin</span></span>
-    <span class="lk"><a href="#impact">Impact</a><a href="#skills">Expertise</a><a href="#work">Work</a><a href="#contact">Contact</a></span>
-    <a class="btn" href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank">Connect &rarr;</a>
+<div id="stage">
+  <div id="photo">
+    <img src="tower.jpg" alt="Tower Bridge, London, full span from Shad Thames" draggable="false">
+    <div class="grade"></div>
+    <div class="bird" style="left:0;top:14%;animation-duration:52s"><svg viewBox="0 0 22 10"><path d="M0 8 Q5 0 11 6 Q17 0 22 8" fill="none" stroke="#1a1418" stroke-width="1.6"/></svg></div>
+    <div class="bird" style="left:0;top:18%;animation-duration:52s;animation-delay:1.1s;width:16px"><svg viewBox="0 0 22 10"><path d="M0 8 Q5 0 11 6 Q17 0 22 8" fill="none" stroke="#1a1418" stroke-width="1.6"/></svg></div>
+    <div class="bird" style="left:0;top:12%;animation-duration:52s;animation-delay:2.3s;width:14px"><svg viewBox="0 0 22 10"><path d="M0 8 Q5 0 11 6 Q17 0 22 8" fill="none" stroke="#1a1418" stroke-width="1.6"/></svg></div>
+    <div class="bird" style="left:0;top:30%;animation-duration:74s;animation-delay:-30s;width:12px"><svg viewBox="0 0 22 10"><path d="M0 8 Q5 0 11 6 Q17 0 22 8" fill="none" stroke="#1a1418" stroke-width="1.6"/></svg></div>
+    <div class="bird" style="left:0;top:33%;animation-duration:74s;animation-delay:-29s;width:10px"><svg viewBox="0 0 22 10"><path d="M0 8 Q5 0 11 6 Q17 0 22 8" fill="none" stroke="#1a1418" stroke-width="1.6"/></svg></div>
+    <div class="pin" data-t="0" style="left:35.5%;top:50%"><b>Cost to serve &amp; impact</b><div class="ring"></div><span>SOUTH TOWER · 01</span></div>
+    <div class="pin" data-t="1" style="left:48.5%;top:42%"><b>A culture of innovation</b><div class="ring"></div><span>THE WALKWAY · 02</span></div>
+    <div class="pin" data-t="2" style="left:61%;top:56%"><b>Employee upskilling</b><div class="ring"></div><span>NORTH TOWER · 03</span></div>
+    <div class="pin" data-t="3" style="left:78%;top:64%"><b>Not a conventional PM</b><div class="ring"></div><span>NORTH APPROACH · 04</span></div>
+    <div id="enter"><button class="btn" id="enterBtn">Step inside →</button></div>
   </div>
-
-  <div class="hero">
-    <div class="kick rv">&#127754; PMP-Certified &middot; Program Manager &middot; 7+ Years at Amazon</div>
-    <h1 class="rv">Turning complex programs into <span class="mk aq"><u>real momentum</u></span> and <span class="mk co"><u>lasting impact</u></span></h1>
-    <p class="sub rv">I lead enterprise-scale programs &mdash; AI transformation, operational excellence, and organizational change &mdash; turning ambiguous mandates into measurable outcomes teams actually feel.</p>
-    <div class="ctas rv">
-      <a class="btn" href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank">View LinkedIn</a>
-      <a class="btn co" href="#work">See my work</a>
-      <span class="cert">&#9670; PMP Certified &mdash; PMI</span>
-    </div>
-  </div>
-
-  <div class="stats" id="impact">
-    <div class="st rv"><div class="n" data-target="400" data-suffix="+">0</div><div class="l">Innovation Ideas Cultivated</div></div>
-    <div class="st rv"><div class="n" data-target="40" data-suffix="%">0</div><div class="l">Efficiency Gain</div></div>
-    <div class="st rv"><div class="n" data-target="10" data-suffix="+">0</div><div class="l">Programs Led</div></div>
-    <div class="st rv"><div class="n" data-target="15" data-suffix="+">0</div><div class="l">FTE Optimized</div></div>
-  </div>
-
-  <svg class="wave rv" viewBox="0 0 1200 70" preserveAspectRatio="none"><path d="M0,40 C150,80 300,0 450,35 C600,70 750,5 900,35 C1050,65 1150,25 1200,40" fill="none" stroke="#00B4D8" stroke-width="5" stroke-linecap="round" opacity=".5"/></svg>
-
-  <section class="sec" id="skills">
-    <h2 class="secT rv">What I bring to <em>the table</em></h2>
-    <p class="secSub rv">Six program management disciplines I practice at enterprise scale every day.</p>
-    <div class="cards">
-      <div class="card b-aq rv"><span class="em">&#128736;&#65039;</span><h3>Program Lifecycle</h3><p>End-to-end ownership from scoping and roadmap planning through execution, governance, and optimization across complex, multi-stakeholder programs.</p><span class="tag t-aq">Scope &rarr; Delivery</span></div>
-      <div class="card b-co rv"><span class="em">&#128202;</span><h3>Portfolio &amp; KPI Governance</h3><p>OKR frameworks, KPI definition and tracking, portfolio-level visibility, and executive reporting that keeps decisions data-backed.</p><span class="tag t-co">OKRs &amp; KPIs</span></div>
-      <div class="card b-vi rv"><span class="em">&#129302;</span><h3>AI Adoption &amp; Transformation</h3><p>Leading AI strategy from awareness to implementation &mdash; program design, org-wide enablement, and measurable movement to active usage.</p><span class="tag t-vi">AI Strategy</span></div>
-      <div class="card b-su rv"><span class="em">&#9889;</span><h3>Operational Excellence</h3><p>Spotting process gaps, redesigning workflows, automating manual effort, and validating gains through rigorous measurement.</p><span class="tag t-su">Process &amp; Automation</span></div>
-      <div class="card b-aq rv"><span class="em">&#127793;</span><h3>Organizational Change</h3><p>Change management, stakeholder alignment, and adoption driving for large initiatives across 1,000+ person orgs.</p><span class="tag t-aq">Change Mgmt</span></div>
-      <div class="card b-co rv"><span class="em">&#127919;</span><h3>Executive Stakeholder Mgmt</h3><p>Translating operational complexity into clear leadership narratives and building the trust that keeps strategic programs funded and on track.</p><span class="tag t-co">Leadership Comms</span></div>
-    </div>
-  </section>
-
-  <section class="sec" id="work">
-    <h2 class="secT rv">Programs I've led. <em>Outcomes that stuck.</em></h2>
-    <p class="secSub rv">Described in general terms per confidentiality standards &mdash; happy to walk through specifics and demos in conversation.</p>
-    <div class="cards">
-
-      <div class="feature rv">
-        <span class="ftag">&#127754; Culture of Innovation &middot; Flagship Program</span>
-        <h3>Multi-Year Enterprise Innovation Program</h3>
-        <p>Founded and led a company-wide innovation program across two consecutive years, building a lasting culture of grassroots innovation. Engaged hundreds of employees in structured idea generation, expanded to new organizations, and &mdash; critically &mdash; built the governance to take ideas beyond collection: every submission tracked through evaluation, leadership review, and to a documented outcome. Standout ideas fed annual operational planning, and a multi-day innovation summit brought the strongest concepts to life.</p>
-        <div class="fbubbles">
-          <div class="fb"><div class="fn">400+</div><div class="fl">Ideas collected (2 yrs)</div></div>
-          <div class="fb"><div class="fn">100s</div><div class="fl">Employees engaged</div></div>
-          <div class="fb"><div class="fn">70+</div><div class="fl">AI/ML concepts</div></div>
-          <div class="fb"><div class="fn">4.55/5</div><div class="fl">Summit satisfaction</div></div>
-        </div>
-      </div>
-
-      <div class="card b-vi rv"><span class="em">&#129302;</span><h3>AI Capability &amp; Upskilling</h3><p>Designed an immersive program that moved 75+ senior leaders from AI awareness to hands-on building in under 24 hours &mdash; culminating in leaders independently building functional AI prototypes.</p><span class="tag t-vi">75+ leaders &middot; 30+ agents built</span></div>
-
-      <div class="card b-aq rv"><span class="em">&#128421;&#65039;</span><h3>Internal Experience Platform</h3><p>Owned product planning, UX, and delivery of a production-grade serverless platform (React, Lambda, DynamoDB, CloudFront) centralizing employee-experience operations across two organizations.</p><span class="tag t-aq">200+ deploys &middot; 1,500+ hrs saved</span></div>
-
-      <div class="card b-co rv"><span class="em">&#9889;</span><h3>Process Automation Overhaul</h3><p>Replaced a manual, fragmented tracking process with an automated system giving leadership real-time visibility &mdash; driving a record-high completion rate across 38 managers and 550+ team members.</p><span class="tag t-co">99% completion &middot; 87% faster</span></div>
-
-      <div class="card b-su rv"><span class="em">&#127881;</span><h3>Engagement &amp; Recognition Transformation</h3><p>Redesigned a recognition framework (3-tier, 9-category), rebuilt an engagement model, and delivered a data-driven people strategy from 550+ survey responses &mdash; approved and actioned by leadership.</p><span class="tag t-su">102% participation lift</span></div>
-
-    </div>
-  </section>
-
-  <section class="sec">
-    <h2 class="secT rv">How I <em>work</em></h2>
-    <div class="steps">
-      <div class="step rv"><div class="sn">1</div><h4>Define outcomes</h4><p>Every program starts with a clear answer to what success looks like for the business.</p></div>
-      <div class="step rv"><div class="sn">2</div><h4>Align early</h4><p>Get the right people aligned before execution, not mid-flight. Less friction, more velocity.</p></div>
-      <div class="step rv"><div class="sn">3</div><h4>Build visibility</h4><p>Dashboards, governance, and reporting cadences that keep leadership informed and accountable.</p></div>
-      <div class="step rv"><div class="sn">4</div><h4>Measure &amp; improve</h4><p>Outcomes tracked against targets. Wins validated. Gaps become the next program.</p></div>
-    </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <h2 class="rv">Let's build something that <span style="color:var(--aq)">sticks</span>.</h2>
-    <p class="rv">Open to senior program management and transformation roles. Best reached on LinkedIn.</p>
-    <div class="ctas rv" style="justify-content:center"><a class="btn" href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank">Connect on LinkedIn &rarr;</a></div>
-  </section>
 </div>
 
-<footer>Shaik Imaduddin &middot; PMP &middot; Program Manager &middot; <a href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank">LinkedIn</a></footer><script>
-/* ---- Bubble canvas (pool/splash) ---- */
-(function(){
-  const cv=document.getElementById('bub'),ctx=cv.getContext('2d');
-  let W,H,bubbles=[];
-  const cols=['0,180,216','255,107,107','123,94,167','255,209,102'];
-  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;spawn();}
-  function spawn(){
-    bubbles=[];
-    const n=Math.round(W/26);
-    for(let i=0;i<n;i++){
-      bubbles.push({
-        x:Math.random()*W, y:Math.random()*H,
-        r:Math.random()*22+6,
-        sp:Math.random()*.5+.18,
-        wob:Math.random()*Math.PI*2,
-        ws:Math.random()*.015+.005,
-        c:cols[Math.floor(Math.random()*cols.length)],
-        a:Math.random()*.28+.08
-      });
-    }
-  }
-  window.addEventListener('resize',resize);resize();
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    bubbles.forEach(b=>{
-      b.y-=b.sp; b.wob+=b.ws; b.x+=Math.sin(b.wob)*.35;
-      if(b.y+b.r<0){b.y=H+b.r;b.x=Math.random()*W;}
-      const g=ctx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,b.r*.1,b.x,b.y,b.r);
-      g.addColorStop(0,'rgba(255,255,255,'+(b.a+.15)+')');
-      g.addColorStop(.4,'rgba('+b.c+','+b.a+')');
-      g.addColorStop(1,'rgba('+b.c+',0)');
-      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,6.283);ctx.fillStyle=g;ctx.fill();
-      ctx.beginPath();ctx.arc(b.x-b.r*.28,b.y-b.r*.28,b.r*.22,0,6.283);ctx.fillStyle='rgba(255,255,255,'+(b.a+.25)+')';ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+<div id="intro">
+  <img class="ph" src="imad.jpg" alt="Shaik Imaduddin">
+  <div class="tx">
+    <div class="eyebrow mono">SHAIK IMADUDDIN · HYDERABAD · OPEN TO SENIOR ROLES</div>
+    <h1>Product has a roadmap. Tech has a backlog. Science has a model. Ops has a floor to run. <em>I'm the bridge.</em></h1>
+    <p class="sub">Seven years at Amazon. Four stops on this bridge hold the latest of what I've built; the latest, not the whole list. Click a stop and step inside.</p>
+    <div class="stamp"><b>Credential:</b> seven years of things that actually shipped. The PMP is a footnote.</div>
+  </div>
+  <div class="side">
+    <div class="stats">
+      <div><b>10+</b>PROGRAMS SHIPPED</div>
+      <div><b>$450K</b>ANNUALISED SAVINGS</div>
+      <div><b>40+</b>IDEAS IMPLEMENTED</div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="mailto:imaduddin.sk@gmail.com">Email</a>
+      <button class="btn" data-t="0">This bridge is the résumé →</button>
+    </div>
+  </div>
+</div>
+<div class="credit mono">Photo: <a href="https://commons.wikimedia.org/wiki/File:Tower_Bridge_from_Shad_Thames.jpg" target="_blank" rel="noopener">Colin</a>, CC BY-SA 4.0, resized</div>
 
-/* ---- Reveal on scroll ---- */
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.12});
-document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*.06)+'s';obs.observe(el);});
+<canvas id="cv"></canvas>
+<div id="fade"></div>
+<button class="btn" id="back">← Back to the bridge</button>
+<div id="room"><div class="pn mono" id="roomPn"></div><h2 id="roomH"></h2><p id="roomP"></p><button class="btn bk2">← Back to the bridge</button></div>
+<div id="door"><div class="card">
+  <div class="pn"><span id="dPn"></span><button class="x" aria-label="Close">×</button></div>
+  <h2 id="dH"></h2>
+  <div id="dBody"></div>
+  <div class="nxt" id="dNxt"></div>
+</div></div>
 
-/* ---- Marker highlight after load ---- */
-window.addEventListener('load',()=>{setTimeout(()=>document.body.classList.add('ready'),250);});
-
-/* ---- Count-up stats ---- */
-function countUp(el){
-  const target=+el.dataset.target, suf=el.dataset.suffix||'';
-  const dur=1400, t0=performance.now();
-  function tick(now){
-    const p=Math.min((now-t0)/dur,1);
-    const eased=1-Math.pow(1-p,3);
-    el.textContent=Math.round(target*eased)+ (p===1?suf:'');
-    if(p<1)requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+<script id="data" type="application/json">
+{"towers":[
+ {"name":"Cost to serve & business impact","short":"Cost to serve & impact","intro":"The through-line: find the manual step everyone has stopped noticing, remove it, and put the saving where leadership can see it.","items":[
+  {"t":"The idea execution engine","p":"Ideas from hackathons and ideathons used to die in spreadsheets. Nobody owned them, nobody chased them, and the good ones stalled next to the bad ones.","b":"A lifecycle tracker that gives every idea an owner and an SLA, chases follow-ups automatically and escalates for help the moment one stalls. Ideas are routed to the team that can actually build them.","i":"The ideas it carried to launch, most of them automations, now avoid roughly $450K a year in operating cost.","kv":[["~$450K","annualised opex avoided"],["40+","ideas implemented, two cycles"]]},
+  {"t":"A centralised escalation desk","p":"Executive escalations landed on whoever saw them first. Response time depended on luck, and the same issue was solved three different ways.","b":"One team, one intake, one playbook. Escalation paths made obvious so the right team hears first, not last.","i":"Faster answers for leadership and a third of the volume, because root causes got fixed instead of re-answered.","kv":[["72h → 24h","escalation SLA"],["85 → 30","weekly escalations"]]},
+  {"t":"Returns recovery: a new mechanism","p":"Units headed for liquidation were being written off by default. Nobody was asking whether they could be sold.","b":"Working with fulfilment teams, I created a recovery path that grades and reroutes units back to sellable stock, with a resolution process that no longer waits on manual triage.","i":"Recovered inventory instead of written-off inventory, and a resolution cycle two weeks shorter.","kv":[["90K+","units a year recovered"],["~$1M","a year in value preserved"],["−14.5 days","resolution cycle"]]},
+  {"t":"Rules-based ticket routing","p":"Tickets bounced between queues before reaching someone who could act on them. Handling time was measured in days.","b":"Automated routing rules that read the ticket up front and send it straight to the right resolver.","i":"Same-day handling and a lower defect rate, because the right person saw the problem first.","kv":[["48h → 6h","handling time"],["19.8% → 18%","defect rate"]]},
+  {"t":"Cross-team synergies","p":"Two teams solving the same problem twice, with neither knowing the other had already done it.","b":"Structured cross-collaboration sessions to find shared work and shared fixes, then a tracked list of what came out of them.","i":"Two that shipped: wiring one team's risk signal into another's vetting flow doubled screening coverage and lifted early detection by three points; a small browser extension removed a manual copy-paste step and took a recurring defect class to zero in its pilot.","kv":[["2x","screening coverage"],["+3 pts","early detection"],["4 → 0","defects in pilot"]]}
+ ]},
+ {"name":"A culture of innovation","short":"A culture of innovation","intro":"Innovation here is a planning rhythm, not an annual event.","items":[
+  {"t":"The problem","p":"Ideas arrived scattered. An associate would mention one in passing and the manager would miss it. A good idea would reach the wrong team and stall. Nobody could say how many ideas the org had, or what happened to them.","b":"","i":""},
+  {"t":"The rhythm: OP1 and OP2","p":"Planning happened twice a year, but ideation happened whenever someone remembered.","b":"A twice-a-year ideation rhythm on the business planning calendar: an OP1-season round loads the pipeline for the year ahead, an OP2-season round closes the loop, reflecting on what shipped and aligning next year's goals.","i":"Every idea now has a season, an owner and a route into the roadmap."},
+  {"t":"Kaizen brainstorms and gemba walks","p":"Ideas were being asked for in meetings, which is not where they live.","b":"Between rounds, every manager runs kaizen-style brainstorms with their associates and gemba walks on the floor, so ideas are captured where the work happens. Each one lands in the lifecycle tracker on Tower 01 and is routed to the right owning team.","i":"Associate ideas stopped getting lost between the floor and the manager's notebook."},
+  {"t":"What happened","p":"","b":"","i":"Unimplemented ideas are not lost: they roll into the OP1 and OP2 roadmaps with an owner, so the next planning cycle starts with a backlog instead of a blank page.","kv":[["350+","ideas across two cycles"],["800+","people engaged each cycle"],["40+","ideas implemented"],["25+","Gen AI automations"],["$450K","annualised savings"]]}
+ ]},
+ {"name":"Employee upskilling","short":"Employee upskilling","intro":"A monthly learning rhythm, not a one-off training day.","items":[
+  {"t":"The gap","p":"Our engagement survey said the same thing two years running: people felt encouraged to innovate, but a ten-point gap sat between \"encouraged\" and \"able\". Training existed, but as an event, not a habit.","b":"","i":""},
+  {"t":"AI master classes","p":"People had watched demos of Gen AI tools and still didn't use them the next morning.","b":"Monthly hands-on classes where everyone builds something live with the tools, and leaves with a working thing rather than a slide deck.","i":"","kv":[["280","in the room, latest class"],["4.7 / 5","satisfaction"]]},
+  {"t":"Manager training","p":"Managers were promoted for doing the work, then asked to write narratives, handle escalations and coach without being taught how.","b":"Manager-specific tracks on the skills that multiply: written narratives, escalation handling, coaching conversations.","i":"Foundations first, then the harder skills.","kv":[["350","through Python & SQL foundations"],["4.4 / 5","satisfaction"]]},
+  {"t":"Well-being","p":"Sustainable pace was treated as a perk, something for when the work was done.","b":"Regular well-being and mental-health sessions built into the same monthly rhythm as the technical training.","i":"The strongest signal is the same one every time: people asking when the next one is."}
+ ]},
+ {"name":"Not a conventional PM","short":"Not a conventional PM","intro":"A conventional program manager writes the requirement and joins Tech's queue. I open Kiro, build the working thing, and bring Tech a prototype instead of a document.","items":[
+  {"t":"An internal employee experience platform","p":"Recognition, ideas and learning were scattered across email and spreadsheets.","b":"Built with Kiro: a React front end on serverless AWS, API Gateway, Lambda, DynamoDB and S3 behind CloudFront, deployed through a Git pipeline.","i":"Now the single front door for the org's employee experience. Running cost: near zero. Time in a build queue: zero."},
+  {"t":"The idea lifecycle tracker","p":"Ideas were submitted and never heard from again.","b":"The full submission-to-decision lifecycle, owners, ageing, SLAs and versioned updates, on the same serverless stack.","i":"The engine behind Towers 01 and 02."},
+  {"t":"The 1:1 performance tracker","p":"Managers were coaching from memory and scattered notes.","b":"A structured tracker with per-associate history and roll-ups, built the same way.","i":"Every coaching conversation starts from data."},
+  {"t":"The business rhythm","p":"Weekly, monthly and quarterly reviews were assembled by hand, differently each time.","b":"Single owner of the org's WBR, MBR and QBR: metrics, narrative, callouts and actions, with a validation layer on the numbers.","i":"","kv":[["−30%","reporting errors"]]}
+ ]}
+]}
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const DATA=JSON.parse(document.getElementById('data').textContent).towers;
+const PAPER=0xF3EFE6, ACCENT=0xE4572E;
+// ---------- photo stage: cover-fit, pins as % of image, zoom to pin ----------
+const stage=document.getElementById('stage'), photo=document.getElementById('photo'), img=photo.querySelector('img');
+const IW=2560, IH=1280;
+let rect={x:0,y:0,w:0,h:0};
+function fit(){ const W=innerWidth,H=innerHeight; const s=Math.max(W/IW,H/IH); rect.w=IW*s; rect.h=IH*s; rect.x=(W-rect.w)/2; rect.y=(H-rect.h)/2;
+  photo.style.left=rect.x+'px'; photo.style.top=rect.y+'px'; photo.style.width=rect.w+'px'; photo.style.height=rect.h+'px'; }
+addEventListener('resize',fit); fit();
+const PINS=[[35.5,50],[48.5,42],[61,56],[78,64]];
+const pins=[...document.querySelectorAll('.pin')], enter=document.getElementById('enter'), intro=document.getElementById('intro'), hint=document.getElementById('hint');
+let focusT=-1, px=0, py=0;
+function setPhoto(scale,ox,oy){ photo.style.transformOrigin=ox+'% '+oy+'%'; photo.style.transform='scale('+scale+') translate('+px+'px,'+py+'px)'; }
+function focusPin(t){
+  focusT=t; const [x,y]=PINS[t];
+  pins.forEach((p,i)=>{p.classList.toggle('hide',i!==t); p.classList.toggle('focus',i===t);});
+  const isPhone=innerWidth<720; setPhoto(isPhone?1.6:2.0,x,y);
+  enter.style.left=x+'%'; enter.style.top=(y+ (isPhone?16:12))+'%'; enter.classList.add('on');
+  intro.classList.add('hide'); hint.classList.add('off');
 }
-const statObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);statObs.unobserve(e.target);}});},{threshold:.6});
-document.querySelectorAll('.st .n').forEach(el=>statObs.observe(el));
-</script></body></html>
+function unfocus(){ focusT=-1; pins.forEach(p=>{p.classList.remove('hide');p.classList.remove('focus');}); setPhoto(1,50,50); enter.classList.remove('on'); intro.classList.remove('hide');  hint.classList.remove('off'); }
+addEventListener('mousemove',e=>{ if(document.body.classList.contains('in'))return; const k=focusT<0?10:3; px=((e.clientX/innerWidth)-.5)*-k; py=((e.clientY/innerHeight)-.5)*-k*0.6; const [x,y]=focusT<0?[50,50]:PINS[focusT]; setPhoto(focusT<0?1.03:(innerWidth<720?1.6:2.0),x,y); });
+stage.addEventListener('click',e=>{ if(e.target.closest('.pin')||e.target.closest('#enter'))return; if(focusT>=0)unfocus(); });
+pins.forEach(p=>p.addEventListener('click',e=>{e.stopPropagation(); focusPin(+p.dataset.t);}));
+setTimeout(()=>setPhoto(1.03,50,50),50);
+
+// ---------- inside: three.js room ----------
+let renderer=null, camera=null;
+try{ renderer=new THREE.WebGLRenderer({canvas:document.getElementById('cv'),antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,0.1,500); }
+catch(e){ document.body.classList.add('flat'); }
+// ================= INSIDE: the tower room with drums =================
+const room=new THREE.Scene();
+room.background=new THREE.Color(0x11151C);
+room.fog=new THREE.Fog(0x11151C,30,90);
+room.add(new THREE.AmbientLight(0xffffff,.35));
+const lamp=new THREE.PointLight(0xFFD9A8,140,80,1.6); lamp.position.set(0,14,0); room.add(lamp);
+const rim=new THREE.PointLight(0xE4572E,60,60,1.8); rim.position.set(0,3,-14); room.add(rim);
+const wall=new THREE.Mesh(new THREE.CylinderGeometry(22,22,30,48,1,true),new THREE.MeshStandardMaterial({color:0x232A36,roughness:.9,side:THREE.BackSide}));
+wall.position.y=15; room.add(wall);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(22,48),new THREE.MeshStandardMaterial({color:0x1A2029,roughness:.8,metalness:.1}));
+floor.rotation.x=-Math.PI/2; room.add(floor);
+const ring=new THREE.Mesh(new THREE.RingGeometry(21.2,21.6,64),new THREE.MeshBasicMaterial({color:ACCENT,side:THREE.DoubleSide}));
+ring.rotation.x=-Math.PI/2; ring.position.y=0.02; room.add(ring);
+// ribs on the wall
+for(let a=0;a<48;a+=4){ const rb=new THREE.Mesh(new THREE.BoxGeometry(0.5,30,0.5),new THREE.MeshStandardMaterial({color:0x2E3745,roughness:.8})); const th=a/48*Math.PI*2; rb.position.set(Math.sin(th)*21.6,15,Math.cos(th)*21.6); room.add(rb); }
+const drumMat=()=>new THREE.MeshStandardMaterial({color:0x2F3846,roughness:.55,metalness:.25,emissive:0x000000});
+const drumTop=new THREE.MeshStandardMaterial({color:ACCENT,roughness:.4});
+let drums=[], drumGroup=new THREE.Group(); room.add(drumGroup);
+function buildRoom(t){
+  drumGroup.clear(); drums=[];
+  const items=DATA[t].items, n=items.length, R=11;
+  for(let i=0;i<n;i++){
+    const th=(i-(n-1)/2)*(Math.PI*0.72/(Math.max(n-1,1)));
+    const x=Math.sin(th)*R, z=-Math.cos(th)*R;
+    const g=new THREE.Group(); g.position.set(x,0,z); g.userData.d=i;
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(2.1,2.1,4.2,32),drumMat()); body.position.y=2.1; body.userData.d=i; g.add(body);
+    const top=new THREE.Mesh(new THREE.CylinderGeometry(2.15,2.15,0.22,32),drumTop); top.position.y=4.3; top.userData.d=i; g.add(top);
+    for(const y of [0.9,3.3]){ const band=new THREE.Mesh(new THREE.TorusGeometry(2.12,0.09,8,40),drumTop); band.rotation.x=Math.PI/2; band.position.y=y; g.add(band); }
+    const num=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.9,0.05),new THREE.MeshBasicMaterial({color:PAPER})); num.position.set(0,2.4,2.14); num.lookAt(0,2.4,10); g.add(num);
+    drumGroup.add(g); drums.push({g,body,i,x,z});
+  }
+}
+// ---------- state ----------
+const cv=document.getElementById('cv'), fade=document.getElementById('fade'), back=document.getElementById('back');
+const door=document.getElementById('door'), dPn=document.getElementById('dPn'), dH=document.getElementById('dH'), dBody=document.getElementById('dBody'), dNxt=document.getElementById('dNxt');
+const roomEl=document.getElementById('room'), roomPn=document.getElementById('roomPn'), roomH=document.getElementById('roomH'), roomP=document.getElementById('roomP');
+let mode='out', curT=-1, curD=-1, dls=[], hot=-1;
+const RHOME={cx:0,cy:3.2,dist:19,yaw:0,pitch:0.12};
+let rview={...RHOME}, rwant={...RHOME};
+let dragging=false,lx=0,ly=0,didDrag=false;
+cv.addEventListener('pointerdown',e=>{dragging=true;didDrag=false;lx=e.clientX;ly=e.clientY;});
+addEventListener('pointerup',()=>{dragging=false;});
+addEventListener('pointermove',e=>{ if(mode!=='in')return;
+  if(dragging){const dx=e.clientX-lx,dy=e.clientY-ly; if(Math.abs(dx)+Math.abs(dy)>3)didDrag=true; lx=e.clientX;ly=e.clientY; rwant.yaw=Math.max(-0.9,Math.min(0.9,rwant.yaw-dx*0.004)); rwant.pitch=Math.max(0.03,Math.min(0.6,rwant.pitch+dy*0.003));}
+  else hover(e); });
+const ray=renderer?new THREE.Raycaster():null, ptr=new THREE.Vector2();
+function pick(e){ if(!renderer)return -1; ptr.set((e.clientX/innerWidth)*2-1,-(e.clientY/innerHeight)*2+1); ray.setFromCamera(ptr,camera); const h=ray.intersectObjects(drums.map(d=>d.body),false); return h.length?h[0].object.userData.d:-1; }
+function hover(e){ const k=pick(e); cv.classList.toggle('pt',k>=0); hot=k; dls.forEach((d,i)=>d.classList.toggle('hot',i===k)); }
+cv.addEventListener('click',e=>{ if(didDrag)return; const k=pick(e); if(k>=0)openDrum(k); });
+
+function enterTower(t){
+  fade.classList.add('on');
+  setTimeout(()=>{
+    mode='in'; curT=t; document.body.classList.add('in');
+    if(renderer){ buildRoom(t); rview={...RHOME,dist:26}; rwant={...RHOME}; size(); }
+    dls.forEach(d=>d.remove()); dls=DATA[t].items.map((it,i)=>{ const d=document.createElement('div'); d.className='dl'; d.textContent=(i+1)+' · '+it.t; d.addEventListener('click',()=>openDrum(i)); document.body.appendChild(d); return d; });
+    roomPn.textContent='STOP 0'+(t+1)+' · INSIDE · '+DATA[t].items.length+' DRUMS'; roomH.textContent=DATA[t].name; roomP.textContent=DATA[t].intro+' Click a drum.';
+    back.classList.add('on'); roomEl.classList.add('on'); door.classList.remove('on'); curD=-1;
+    if(!renderer)openDrum(0);
+    setTimeout(()=>fade.classList.remove('on'),80);
+  },500);
+}
+function exitTower(){
+  fade.classList.add('on');
+  setTimeout(()=>{ mode='out'; document.body.classList.remove('in'); dls.forEach(d=>d.remove()); dls=[]; back.classList.remove('on'); roomEl.classList.remove('on'); door.classList.remove('on'); unfocus(); setTimeout(()=>fade.classList.remove('on'),80); },500);
+}
+function openDrum(i){
+  curD=i; const it=DATA[curT].items[i];
+  dPn.textContent='STOP 0'+(curT+1)+' · DRUM '+(i+1)+' / '+DATA[curT].items.length; dH.textContent=it.t;
+  let h=''; if(it.p)h+='<h3>The problem</h3><p>'+it.p+'</p>'; if(it.b)h+='<h3>What I built</h3><p>'+it.b+'</p>'; if(it.i)h+='<h3>What changed</h3><p>'+it.i+'</p>';
+  if(it.kv)h+='<div class="kv">'+it.kv.map(([a,b])=>'<span><b>'+a+'</b> '+b+'</span>').join('')+'</div>';
+  dBody.innerHTML=h;
+  let n=''; if(i<DATA[curT].items.length-1)n+='<button class="btn" data-d="'+(i+1)+'">Next drum →</button>';
+  else if(curT<3)n+='<button class="btn" data-go="'+(curT+1)+'">Stop 0'+(curT+2)+': '+DATA[curT+1].short+' →</button>';
+  else n+='<a class="btn primary" href="https://www.linkedin.com/in/shaik-imaduddin-1276a9b3" target="_blank" rel="noopener">Connect on LinkedIn</a><a class="btn" href="mailto:imaduddin.sk@gmail.com">imaduddin.sk@gmail.com</a>';
+  n+='<button class="btn bk">← Back to the bridge</button>';
+  dNxt.innerHTML=n;
+  dNxt.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',()=>openDrum(+b.dataset.d)));
+  dNxt.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>enterTower(+b.dataset.go)));
+  dNxt.querySelectorAll('.bk').forEach(b=>b.addEventListener('click',exitTower));
+  door.classList.add('on'); door.scrollTop=0; roomEl.classList.remove('on');
+  if(renderer){ const d=drums[i]; rwant={cx:d.x*0.55,cy:2.6,dist:13,yaw:Math.atan2(d.x,-d.z)*0.5,pitch:0.14}; drums.forEach((dr,k)=>dr.body.material.emissive.setHex(k===i?0x5a2412:0x000000)); }
+}
+document.querySelectorAll('header [data-t], #intro [data-t]').forEach(el=>el.addEventListener('click',()=>{ const t=+el.dataset.t; if(mode==='in')enterTower(t); else focusPin(t); }));
+document.getElementById('enterBtn').addEventListener('click',e=>{e.stopPropagation(); enterTower(focusT);});
+back.addEventListener('click',exitTower);
+document.querySelector('.bk2').addEventListener('click',exitTower);
+document.querySelector('.x').addEventListener('click',()=>{ door.classList.remove('on'); roomEl.classList.add('on'); rwant={...RHOME}; if(renderer)drums.forEach(dr=>dr.body.material.emissive.setHex(0)); });
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ if(mode==='in'){ if(door.classList.contains('on'))document.querySelector('.x').click(); else exitTower(); } else if(focusT>=0)unfocus(); }
+  if(e.key==='Enter'&&mode==='out'&&focusT>=0)enterTower(focusT);
+  if(mode==='in'&&e.key==='ArrowRight')openDrum(Math.min(DATA[curT].items.length-1,curD+1));
+  if(mode==='in'&&e.key==='ArrowLeft')openDrum(Math.max(0,curD-1));
+  if(mode==='out'&&e.key==='ArrowRight')focusPin(Math.min(3,focusT+1));
+  if(mode==='out'&&e.key==='ArrowLeft'&&focusT>0)focusPin(focusT-1);
+});
+// ---------- loop (inside only) ----------
+const clock=new THREE.Clock(), v3=new THREE.Vector3();
+function size(){ if(!renderer)return; renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); }
+addEventListener('resize',size);
+function proj(x,y,z,el){ v3.set(x,y,z).project(camera); el.style.left=((v3.x+1)/2*innerWidth)+'px'; el.style.top=((1-v3.y)/2*innerHeight)+'px'; return v3.z<1; }
+function tick(){
+  requestAnimationFrame(tick); if(!renderer||mode!=='in')return;
+  const t=clock.getElapsedTime();
+  for(const k in rwant) rview[k]+=(rwant[k]-rview[k])*0.07;
+  camera.position.set(rview.cx+Math.sin(rview.yaw)*Math.cos(rview.pitch)*rview.dist, rview.cy+Math.sin(rview.pitch)*rview.dist, Math.cos(rview.yaw)*Math.cos(rview.pitch)*rview.dist);
+  camera.lookAt(rview.cx,rview.cy+1.5,-4);
+  drums.forEach((d,i)=>{ d.g.position.y=(i===hot||i===curD)?0.35+Math.sin(t*3)*0.08:0; d.g.rotation.y=t*0.15; const ok=proj(d.x,5.6,d.z,dls[i]); if(dls[i])dls[i].style.opacity=ok?1:0; });
+  lamp.intensity=140+Math.sin(t*2.3)*8;
+  renderer.render(room,camera);
+}
+tick();
+</script>
+</body>
+</html>
